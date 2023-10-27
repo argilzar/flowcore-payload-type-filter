@@ -6,36 +6,36 @@ import express, {Request, Response} from "express";
 import health from "@functions/health.entrypoint";
 import transform from "@functions/transform.entrypoint";
 import start from "@functions/start.entrypoint";
+import * as console from "console";
 
 const app = express();
 
 app.use(express.json());
 
 app.get("/health", async (req: Request, res: Response): Promise<Response> => {
-  return res.send(await health());
+    return res.send(await health());
 });
 
 app.post("/transform", async (req: Request, res: Response): Promise<Response> => {
-  const { eventId, validTime, payload } = req.body;
-
-  return res.send(await transform({
-    eventId,
-    validTime,
-    payload,
-  }));
+    const {eventId, validTime, payload} = req.body;
+    const result = await transform({eventId, validTime, payload});
+    if (result) {
+        return res.header("x-flowcore-event-time", result.validTime).send(result.payload);
+    }
+    return res.header("x-flowcore-no-data", "filtered").send(null);
 });
 
 const run = async (): Promise<void> => {
-  const port = process.env.PORT || 4000;
-  try {
-    await start();
-    app.listen(port, () => {
-      console.log(`Server started on port ${port}`);
-    });
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+    const port = process.env.PORT || 4000;
+    try {
+        await start();
+        app.listen(port, () => {
+            console.log(`Server started on port ${port}`);
+        });
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
+    }
 };
 
 void run();

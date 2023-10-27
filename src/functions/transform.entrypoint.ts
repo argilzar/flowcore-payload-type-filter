@@ -15,7 +15,7 @@ interface Input<T = any> {
 export default async function (input: Input) {
   try {
     const {payload_type} = input.payload;
-    input.validTime = input.payload.call_start_time |;
+    input.validTime = input.payload && input.payload.payload && input.payload.payload.call_start_time ? input.payload.payload.call_start_time : input.validTime;
     if(payload_type === 62){
       return input;
     }
