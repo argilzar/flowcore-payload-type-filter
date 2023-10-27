@@ -4,6 +4,8 @@
 // to transform an event, the return value of this function will be passed to
 // the read model adapter.
 // -----------------------------------------------------------------------------
+import * as console from "console";
+
 interface Input<T = any> {
   eventId: string;
   validTime: string;
@@ -11,8 +13,16 @@ interface Input<T = any> {
 }
 
 export default async function (input: Input) {
-  if(payload.payload_type === 62){
-    return input;
+  try {
+    const {payload_type} = input.payload;
+    input.validTime = input.payload.call_start_time |;
+    if(payload_type === 62){
+      return input;
+    }
+    return null;
+  }catch (e) {
+    console.error(e);
+    return null;
   }
-  return null;
+
 }
