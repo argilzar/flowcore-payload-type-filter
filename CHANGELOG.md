@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0 (2023-10-27)
+
+
+### Features
+
+* Payload type 62 ([ea41f2a](https://github.com/argilzar/flowcore-payload-type-filter/commit/ea41f2a03c9fb8b6b1197544ecdf595e98c4ebe1))
+
+
+### Bug Fixes
+
+* Remove test ([9071627](https://github.com/argilzar/flowcore-payload-type-filter/commit/9071627616a3a05853fce30d01fa1fa92d352698))
+
 ## [2.0.0](https://github.com/flowcore-io/nodejs-typescript-transformer-example/compare/v1.3.1...v2.0.0) (2023-10-24)
 
 
