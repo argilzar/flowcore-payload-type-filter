@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/argilzar/flowcore-payload-type-filter/compare/v1.0.0...v1.0.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* Fixed bug ([926a898](https://github.com/argilzar/flowcore-payload-type-filter/commit/926a898300ce8280435d34b2e2e7ef55e636e8f6))
+* Fixed bug ([9c3d55c](https://github.com/argilzar/flowcore-payload-type-filter/commit/9c3d55c6f92675dcafb7b5a55c5c7ec9aac40f5c))
+
 ## 1.0.0 (2023-10-27)
 
 
