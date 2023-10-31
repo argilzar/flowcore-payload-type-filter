@@ -18,10 +18,12 @@ const SOURCE_SERVER_NAME_1 = "devsol";
 const SOURCE_SERVER_NAME_2 = "hapag";
 
 interface ReturnRecord {
+    id: string;
     timestamp: string;
     record_type: number;
     box_id: number;
     asset_id: number;
+    owner_id: number;
     source_server_id: number;
     when_received: string;
 } 
@@ -36,10 +38,12 @@ function transform_LOCATION_RECORD(input: Input) {
     if (input.payload && input.payload.payload) {
         const timeStamp = input.payload.payload["gps_time"] ? input.payload.payload["gps_time"] : input.validTime;
         const returnRecord: ReturnRecord = {
+            id: `${input.payload["id"]}-${getSourceServerId(input.payload["source_server"])}`,
             timestamp: timeStamp,
             record_type: LOCATION_RECORD,
             box_id: parseInt(input.payload["box_id"]),
             asset_id: parseInt(input.payload["asset_id"]),
+            owner_id: parseInt(input.payload["owner_id"]),
             source_server_id: getSourceServerId(input.payload["source_server"]),
             when_received: new Date(parseInt(input.payload["when_received"])).toISOString(),
         }
@@ -53,10 +57,12 @@ function transform_SYSTEM_STATUS_RECORD(input: Input) {
     if(input.payload && input.payload.payload) {
         const timeStamp = input.payload["when_sent"] ? new Date(input.payload["when_sent"]).toISOString() : input.validTime;
         const returnRecord: ReturnRecord = {
+            id: `${input.payload["id"]}-${getSourceServerId(input.payload["source_server"])}`,
             timestamp: timeStamp,
             record_type: SYSTEM_STATUS_RECORD,
             box_id: parseInt(input.payload["box_id"]),
             asset_id: parseInt(input.payload["asset_id"]),
+            owner_id: parseInt(input.payload["owner_id"]),
             source_server_id: getSourceServerId(input.payload["source_server"]),
             when_received: new Date(parseInt(input.payload["when_received"])).toISOString(),
         }
@@ -66,7 +72,10 @@ function transform_SYSTEM_STATUS_RECORD(input: Input) {
 
 export default async function (input: Input) {
     try {
-        const {payload_type} = input.payload;
+        const {payload_type, asset_id} = input.payload;
+        if(!parseInt(asset_id)){
+            return null;
+        }
         switch (payload_type) {
             case CELLULAR_PAYLOAD_TYPE:
                 return transform_CELLULAR_PAYLOAD_TYPE(input);
@@ -88,13 +97,15 @@ export default async function (input: Input) {
 
 
 function transform_INTERNAL_SENSOR_RECORD(input: Input) {
-    if (input.payload && input.payload.payload && input.payload["asset_id"]&& input.payload["box_id"]) {
+    if (input.payload && input.payload.payload ) {
         const timeStamp = input.payload.payload["when_captured"] ? input.payload.payload["when_captured"] : input.validTime;
         const returnRecord: ReturnRecord = {
+            id: `${input.payload["id"]}-${getSourceServerId(input.payload["source_server"])}`,
             timestamp: timeStamp,
             record_type: INTERNAL_SENSOR_RECORD,
             box_id: parseInt(input.payload["box_id"]),
             asset_id: parseInt(input.payload["asset_id"]),
+            owner_id: parseInt(input.payload["owner_id"]),
             source_server_id: getSourceServerId(input.payload["source_server"]),
             when_received: new Date(parseInt(input.payload["when_received"])).toISOString(),
         }
@@ -107,10 +118,12 @@ function transform_CELLULAR_PAYLOAD_TYPE(input: Input) {
     if (input.payload && input.payload.payload) {
         const timeStamp = input.payload.payload["call_start_time"] ? input.payload.payload["call_start_time"] : input.validTime;
         const returnRecord: ReturnRecord = {
+            id: `${input.payload["id"]}-${getSourceServerId(input.payload["source_server"])}`,
             timestamp: timeStamp,
             record_type: CELLULAR_PAYLOAD_TYPE,
             box_id: parseInt(input.payload["box_id"]),
             asset_id: parseInt(input.payload["asset_id"]),
+            owner_id: parseInt(input.payload["owner_id"]),
             source_server_id: getSourceServerId(input.payload["source_server"]),
             when_received: new Date(parseInt(input.payload["when_received"])).toISOString(),
         }
