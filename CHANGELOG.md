@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/argilzar/flowcore-payload-type-filter/compare/v1.0.1...v1.1.0) (2023-10-31)
+
+
+### Features
+
+* Ready data for timescaledb ([f878dcd](https://github.com/argilzar/flowcore-payload-type-filter/commit/f878dcdf2b1778448474c52e92c4306c08f213a0))
+
 ## [1.0.1](https://github.com/argilzar/flowcore-payload-type-filter/compare/v1.0.0...v1.0.1) (2023-10-27)
 
 
