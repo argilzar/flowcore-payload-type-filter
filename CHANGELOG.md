@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/argilzar/flowcore-payload-type-filter/compare/v1.1.0...v1.1.1) (2023-10-31)
+
+
+### Bug Fixes
+
+* Asset id and or box id missing ([b35409c](https://github.com/argilzar/flowcore-payload-type-filter/commit/b35409c35cc6a1212877dfd971ba37493e419e01))
+* Asset id missing and added owner_id ([338c756](https://github.com/argilzar/flowcore-payload-type-filter/commit/338c756de301754fd27e776ef83f1e156bb9e022))
+
 ## [1.1.0](https://github.com/argilzar/flowcore-payload-type-filter/compare/v1.0.1...v1.1.0) (2023-10-31)
 
 
