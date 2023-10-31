@@ -20,7 +20,7 @@ app.post("/transform", async (req: Request, res: Response): Promise<Response> =>
     const {eventId, validTime, payload} = req.body;
     const result = await transform({eventId, validTime, payload});
     if (result) {
-        return res.header("x-flowcore-event-time", result.validTime).send(result.payload);
+        return res.header("x-flowcore-event-time", result.timestamp).send(result);
     }
     return res.header("x-flowcore-no-data", "filtered").send(null);
 });
