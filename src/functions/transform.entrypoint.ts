@@ -24,7 +24,7 @@ interface ReturnRecord {
     asset_id: number;
     source_server_id: number;
     when_received: string;
-}
+} 
 
 interface Input<T = any> {
     eventId: string;
@@ -88,7 +88,7 @@ export default async function (input: Input) {
 
 
 function transform_INTERNAL_SENSOR_RECORD(input: Input) {
-    if (input.payload && input.payload.payload) {
+    if (input.payload && input.payload.payload && input.payload["asset_id"]&& input.payload["box_id"]) {
         const timeStamp = input.payload.payload["when_captured"] ? input.payload.payload["when_captured"] : input.validTime;
         const returnRecord: ReturnRecord = {
             timestamp: timeStamp,
